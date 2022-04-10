@@ -14,6 +14,10 @@ async function getBoard() {
 			const userDiv = document.createElement('div');
 			const span = document.createElement('span');
 			span.textContent = boardtitle[key];
+			const span2 = document.createElement('span');
+
+			span2.textContent = ': ' + boarddesc[key];
+
 			const edit = document.createElement('button');
 			edit.textContent = '수정';
 			edit.addEventListener('click', async () => {
@@ -41,6 +45,8 @@ async function getBoard() {
 				}
 			});
 			userDiv.appendChild(span);
+			userDiv.appendChild(span2);
+
 			userDiv.appendChild(edit);
 			userDiv.appendChild(remove);
 			list.appendChild(userDiv);
