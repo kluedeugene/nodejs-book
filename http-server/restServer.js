@@ -1,7 +1,10 @@
 const http = require('http');
+const { json } = require('stream/consumers');
 const fs = require('fs').promises;
 
 const users = {}; // 데이터 저장용
+const titlejson = {};
+const descjson = {};
 
 http
 	.createServer(async (req, res) => {
@@ -18,7 +21,15 @@ http
 				} else if (req.url === '/users') {
 					res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' }); // json 형식으로 응답
 					return res.end(JSON.stringify(users));
+				} else if (req.url === '/board') {
+					const data = await fs.readFile('./board.html');
+					res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+					return res.end(data);
+				} else if (req.url === '/boardjson') {
+					res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' }); // json 형식으로 응답
+					return res.end(JSON.stringify(titlejson));
 				}
+
 				// /도 /about도 /users도 아니면
 				try {
 					//폴더에서 해당하는 파일을 찾아서 프론트로 보내준다
@@ -36,10 +47,34 @@ http
 					});
 					//요청의 body를 다받은 후 실행됨
 					return req.on('end', () => {
-						console.log('POST 본문(Body):', body);
+						console.log('User 파트 POST 본문(Body):', body);
 						const { name } = JSON.parse(body);
 						const id = Date.now();
 						users[id] = name;
+						console.log('users 파트 parsing:', users[id]);
+
+						res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
+						res.end('ok');
+					});
+				} else if (req.url === '/postboard') {
+					let body = '';
+					//요청의 body를 stream 형식으로 받음
+					req.on('data', (data) => {
+						body += data;
+					});
+					//요청의 body를 다받은 후 실행됨
+					return req.on('end', () => {
+						console.log('User 파트 POST 본문(Body):', body);
+						const { boardtitle } = JSON.parse(body); //front에서 axios post 할시 변수이름 같게 안하면 객체값이 undefined가 된다.이유?
+						const { boarddesc } = JSON.parse(body); //front에서 axios post 할시 변수이름 같게 안하면 객체값이 undefined가 된다.이유?
+
+						const id = Date.now();
+						titlejson[id] = boardtitle;
+						titlejson[id + 1] = boarddesc;
+
+						console.log('parsing:', titlejson[id]);
+						console.log('parsing:', titlejson[id + 1]);
+
 						res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
 						res.end('ok');
 					});

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8" />
+		<title>board</title>
+	</head>
+	<body>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/about">About</a>
+			<a href="/board">게시글작성</a>
+		</nav>
+		<div>
+			<!-- <form id="form"></form> -->
+			<!-- <input type="text" id="boardtext" /> -->
+			<form id="form">
+				<p><input type="text" id="title" /></p>
+				<p>
+					<textarea type="text" id="description"></textarea>
+				</p>
+				<p>
+					<button type="submit">등록</button>
+				</p>
+			</form>
+		</div>
+		<div id="boardlist"></div>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="./boardfront.js"></script>
+	</body>
+</html>
