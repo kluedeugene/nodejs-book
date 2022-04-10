@@ -1,25 +1,29 @@
 async function getBoard() {
 	// 로딩 시 게시글 가져오는 함수
 	try {
-		const res = await axios.get('/boardjson');
-		const boardtext = res.data;
+		const res = await axios.get('/boardjsontitle');
+		const res2 = await axios.get('/boardjsondesc');
+
+		const boardtitle = res.data;
+		const boarddesc = res2.data;
+
 		const list = document.getElementById('boardlist');
 		list.innerHTML = '';
 		// 사용자마다 반복적으로 화면 표시 및 이벤트 연결
-		Object.keys(boardtext).map(function (key) {
+		Object.keys(boardtitle).map(function (key) {
 			const userDiv = document.createElement('div');
 			const span = document.createElement('span');
-			span.textContent = boardtext[key];
+			span.textContent = boardtitle[key];
 			const edit = document.createElement('button');
 			edit.textContent = '수정';
 			edit.addEventListener('click', async () => {
 				// 수정 버튼 클릭
-				const boardtext = prompt('바꿀 이름을 입력하세요');
-				if (!boardtext) {
+				const boardtitle = prompt('바꿀 이름을 입력하세요');
+				if (!boardtitle) {
 					return alert('이름을 반드시 입력하셔야 합니다');
 				}
 				try {
-					await axios.put('/board/' + key, { boardtext });
+					await axios.put('/board/' + key, { boardtitle });
 					getBoard();
 				} catch (err) {
 					console.error(err);

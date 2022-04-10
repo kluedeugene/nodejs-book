@@ -25,9 +25,12 @@ http
 					const data = await fs.readFile('./board.html');
 					res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 					return res.end(data);
-				} else if (req.url === '/boardjson') {
+				} else if (req.url === '/boardjsontitle') {
 					res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' }); // json 형식으로 응답
 					return res.end(JSON.stringify(titlejson));
+				} else if (req.url === '/boardjsondesc') {
+					res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' }); // json 형식으로 응답
+					return res.end(JSON.stringify(descjson));
 				}
 
 				// /도 /about도 /users도 아니면
@@ -70,10 +73,10 @@ http
 
 						const id = Date.now();
 						titlejson[id] = boardtitle;
-						titlejson[id + 1] = boarddesc;
+						descjson[id] = boarddesc;
 
 						console.log('parsing:', titlejson[id]);
-						console.log('parsing:', titlejson[id + 1]);
+						console.log('parsing:', descjson[id]);
 
 						res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8' });
 						res.end('ok');
