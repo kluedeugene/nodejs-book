@@ -1,0 +1,14 @@
+{
+	"name": "express-server",
+	"version": "0.0.1",
+	"description": "",
+	"scripts": {
+		"start": "nodemon app"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15"
+	},
+	"dependencies": {
+		"express": "^4.17.3"
+	}
+}
