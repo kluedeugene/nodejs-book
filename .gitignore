@@ -1,3 +1,6 @@
 .idea/vcs.xml
 .idea/modules.xml
 .idea/nodejs-book.iml
+http-server/boarddata/HTML
+.idea/jsLibraryMappings.xml
+.gitignore
