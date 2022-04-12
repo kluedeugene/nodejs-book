@@ -4,3 +4,4 @@
 http-server/boarddata/HTML
 .idea/jsLibraryMappings.xml
 .gitignore
+publish/node_modules/*
