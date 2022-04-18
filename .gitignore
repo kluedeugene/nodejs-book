@@ -6,3 +6,4 @@ http-server/boarddata/HTML
 .gitignore
 publish/node_modules/*
 express-server/node_modules/*
+sequelize/node_modules/*
