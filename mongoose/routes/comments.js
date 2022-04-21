@@ -27,7 +27,7 @@ router
 					_id: req.params.id
 				},
 				{
-					comment: req.body.comment
+					comment: req.body.comment //$set이 자동적용되어있다.
 				}
 			);
 			res.json(result);
