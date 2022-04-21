@@ -7,3 +7,4 @@ http-server/boarddata/HTML
 publish/node_modules/*
 express-server/node_modules/*
 sequelize/node_modules/*
+mongoose/node_modules/*
